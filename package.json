@@ -1,0 +1,22 @@
+{
+  "name": "train-alert",
+  "description": "Simple app to alert when my train is late",
+  "version": "0.0.1",
+  "copyright": "Copyright 2016",
+  "license": "MIT",
+  "homepage": "http://byetimmy.selfip.com",
+  "author": "Bob Barber",
+  "scripts": {
+    "start": "npm run clean && node app.js",
+    "clean": "npm prune && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byetimmy/train-alert.git"
+  },
+  "dependencies": {
+    "node-schedule": "latest",
+    "request": "latest",
+    "nodemailer": "latest"
+  }
+}
