@@ -56,7 +56,7 @@ for (var i = 0, trainLen = trains.length; i < trainLen; i++) {
                     for (var j = 0, dataLen = data.length; j < dataLen; j++) {
                         var info = data[j];
                         if (trainno === parseInt(info.trainno.trim(), 10)) {
-
+			    console.log('Checking schedule for train: ' + trainno);
                             var sNewTime = info.newtime24.trim();
                             var sOrigTime = info.scheduled24.trim();
                             if (sNewTime.length > 0) {
