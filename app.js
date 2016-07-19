@@ -59,7 +59,7 @@ for (var i = 0, trainLen = trains.length; i < trainLen; i++) {
                         var info = data[j];
                         if (trainno === parseInt(info.trainno.trim(), 10)) {
 
-			    console.log('Checking schedule for train: ' + trainno);
+			    console.log('Checking schedule for train: ' + trainno + '.  Last time is was ' + lastDiff + ' minutes late');
 
                             var sNewTime = info.newtime24.trim();
                             var sOrigTime = info.scheduled24.trim();
