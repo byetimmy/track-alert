@@ -47,6 +47,8 @@ for (var i = 0, trainLen = trains.length; i < trainLen; i++) {
         var trainno = this.trainno;
         var threshold = this.threshold;
         var sendto = this.sendto;
+	var lastDiff = this.lastDiff || 0;
+	var _this = this;
 
         request(dataUrl, function(error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -56,24 +58,28 @@ for (var i = 0, trainLen = trains.length; i < trainLen; i++) {
                     for (var j = 0, dataLen = data.length; j < dataLen; j++) {
                         var info = data[j];
                         if (trainno === parseInt(info.trainno.trim(), 10)) {
+
 			    console.log('Checking schedule for train: ' + trainno);
+
                             var sNewTime = info.newtime24.trim();
                             var sOrigTime = info.scheduled24.trim();
-                            if (sNewTime.length > 0) {
-                                var origTime = new Date();
-                                origTime.setHours(sOrigTime.substring(0, 2));
-                                origTime.setMinutes(sOrigTime.substring(2));
+                            if (sNewTime.length === 0) {
+				sNewTime = sOrigTime;
+			    }
+                            var origTime = new Date();
+                            origTime.setHours(sOrigTime.substring(0, 2));
+                            origTime.setMinutes(sOrigTime.substring(2));
 
-                                var newTime = new Date();
-                                newTime.setHours(sNewTime.substring(0, 2));
-                                newTime.setMinutes(sNewTime.substring(2));
+                            var newTime = new Date();
+                            newTime.setHours(sNewTime.substring(0, 2));
+                            newTime.setMinutes(sNewTime.substring(2));
 
-                                var diff = (newTime - origTime) / 60 / 1000;
-
-                                if (diff > threshold) {
+                            var diff = parseInt((newTime - origTime) / 60 / 1000, 10);
+			    if (diff !== lastDiff) {
+                                if (lastDiff > threshold || diff > threshold) {
                                     _sendMsg(info, station, diff, sendto);
-
-                                }
+				}
+				_this.lastDiff = diff;
                             }
 
                         }
